@@ -18,7 +18,7 @@ function Cards(){
     const [items, setItems]= useState(initialItems.sort(()=> Math.random() -0.5))
     const [prev, setPrev] = useState(-1)
     const [flipped, setFlipped] = useState(false);
-    
+    const [turns, setTurns] = useState(0);
 
     
     function check(current){
@@ -40,6 +40,7 @@ function Cards(){
             },1000)
             
         }
+        setTurns(turns + 1);
     }
 
     function checkClick(id){
@@ -56,6 +57,7 @@ function Cards(){
         setTimeout(() => {
         setItems(initialItems.sort(() => Math.random() - 0.5));
         setFlipped(false);},1000);
+        setTurns(0);
     }
 
     
@@ -64,7 +66,10 @@ function Cards(){
             {items?.map((item, index) => (<Card key={index} item={item} id={index} checkClick={checkClick} flipped={flipped} />
             ))}
         </div>
-        <div className="buttoncontainer"> <button onClick={handleResetClick}> New Game</button> </div></>
+        <div className="buttoncontainer"> <button onClick={handleResetClick}> New Game</button> </div>
+        <div className="buttoncontainer"> <button onClick={()=> window.location.reload()}> reload Game</button> </div>
+        <div className="turn-counter">Turns: {turns}</div></>
+        
     )   
 }
 export default Cards
