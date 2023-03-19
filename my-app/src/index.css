@@ -3,7 +3,7 @@
   padding:0;
 }
 html,body{
-  height: 100%;
+  height: 110%;
 }
 
 body{
@@ -33,8 +33,8 @@ h1{
   align-items: center;
   border-radius: 5px;
   transform: rotateY(180deg);
-  animation: 2s hideCard linear;
-  transition: transform 0.5s;
+  animation: 2.7s hideCard linear;
+  transition: transform 0.7s;
 }
 @keyframes hideCard {
   0%, 70%{
@@ -51,7 +51,7 @@ h1{
   max-height: 80%;
   transition: transform 0.5s;
   transform: scale(0);
-  animation: 2s hideImage linear;
+  animation: 2.7s hideImage linear;
  
 }
 
@@ -78,3 +78,22 @@ h1{
 .card.card.correct img{
   opacity: 0.5;
 }
+
+.buttoncontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  background-color:blue;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 20px; 
+} 
