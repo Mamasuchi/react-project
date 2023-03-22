@@ -19,6 +19,7 @@ function Cards(){
     const [prev, setPrev] = useState(-1)
     const [flipped, setFlipped] = useState(false);
     const [turns, setTurns] = useState(0);
+    const [matchedCards, setMatchedCards] = useState(0);
 
     
     function check(current){
@@ -26,17 +27,20 @@ function Cards(){
             items[current].stat = "correct"
             items[prev].stat = "correct"
             setItems([...items])
+            setMatchedCards(matchedCards + 1);
             setPrev(-1)
         }
         else{
             items[current].stat= "wrong"
             items[prev].stat= "wrong"
             setItems([...items])
+            setFlipped(true);
             setTimeout(()=> {
                 items[current].stat= ""
                 items[prev].stat=""
                 setItems([...items])
                 setPrev(-1)
+                
             },1000)
             
         }
@@ -44,12 +48,15 @@ function Cards(){
     }
 
     function checkClick(id){
-       if(prev===-1){
-        setItems([...items])
-        setPrev(id)
-       }else{
+        if(prev === -1 && !flipped && matchedCards !== totalMatches){
+            setItems([...items])
+            setPrev(id)
+        }
+        else if(!flipped && matchedCards !== totalMatches){
+            setFlipped(true)
             check(id)
-       }
+            setTimeout(() => setFlipped(false), 1000)
+        }
     }
 
     function handleResetClick() {
@@ -58,8 +65,20 @@ function Cards(){
         setItems(initialItems.sort(() => Math.random() - 0.5));
         setFlipped(false);},1000);
         setTurns(0);
+        setMatchedCards(0);
     }
 
+    function handleResfreshClick() {
+        return window.location.reload()
+    }
+
+    const totalMatches = initialItems.length / 2
+
+    function Victory(){
+       if( matchedCards=== totalMatches){
+        return <div className="victory-message">Congratulations, you won in {turns} turns!</div>;
+       }
+    }
     
     return (
      <><div className="container">
@@ -67,8 +86,9 @@ function Cards(){
             ))}
         </div>
         <div className="buttoncontainer"> <button onClick={handleResetClick}> New Game</button> </div>
-        <div className="buttoncontainer"> <button onClick={()=> window.location.reload()}> reload Game</button> </div>
-        <div className="turn-counter">Turns: {turns}</div></>
+        <div className="buttoncontainer"> <button onClick={ handleResfreshClick}> reload Game</button> </div>
+        <div className="turn-counter">Turns: {turns}</div>
+        {Victory()}</>
         
     )   
 }

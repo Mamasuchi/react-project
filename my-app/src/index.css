@@ -99,4 +99,10 @@ button {
 } 
 .turn-counter{
   color: black;
+  font-size: 25px;
+  
+}
+.victory-message{
+  color: greenyellow;
+  font-size: 22px;
 }
